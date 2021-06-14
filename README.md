@@ -1,2 +1,2 @@
 # HackingWithPython
-Packing tools written in python.
+Hacking tools written in python.

@@ -5,6 +5,7 @@ The subprocess module will execute system commands regardless of the OS. IT will
 see https://docs.python.org/3/library/subprocess.html
 '''
 
+# en0 MAC address ether = 38:f9:d3:83:27:4b
 
 import subprocess
 import optparse   
@@ -37,7 +38,7 @@ def change_MAC(interface, new_mac):
 
 def get_current_MAC(interface):
     ifconfig_result = str(subprocess.check_output(["ifconfig", interface]))                  # check_output returns the output by the command given.
-    mac_address_search_result = re.search(r"\w\w:\w\w:\w\w:\w\w:\w\w:\w\w", ifconfig_result)      # Regex rules need to start with 'r'
+    mac_address_search_result = re.search(r"\w\w:\w\w:\w\w:\w\w:\w\w:\w\w", ifconfig_result) # Regex rules need to start with 'r'
 
     if mac_address_search_result:
         return mac_address_search_result.group(0)                                            # group(0) is the first result
@@ -45,11 +46,17 @@ def get_current_MAC(interface):
         print("[-] Could not read MAC address.")
 
 MyOptions = get_arguments()
+
 current_mac = get_current_MAC(MyOptions.interface)
-print("Current_mac == " + str(current_mac))
+print("current_mac == " + str(current_mac))
 
 # --- uncomment to implement changeing 
 # change_MAC(MyOptions.interface, MyOptions.new_mac)
 
+current_mac = get_current_MAC(MyOptions.interface)
+if current_mac == MyOptions.new_mac:
+    print("[+] MAC address was successfully changed to " + current_mac)
+else:
+    print("[-] MAC address did not get changed.")
 
 

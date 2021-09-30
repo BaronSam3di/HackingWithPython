@@ -20,11 +20,11 @@
 #
 # 		Run as follows:
 #
-#                   python simple-https-server_basic-auth.py
+#                   python https_Server.py
 #
 # 		In your browser, visit:
 #
-#                   https://localhost:4443
+#                   https://localhost:8000
 #
 
 import os
@@ -40,8 +40,8 @@ logger = logging.getLogger()
 
 class BasicAuthHandler(http.server.SimpleHTTPRequestHandler):
 
-    # Basic Auth Key ( !!Change Me!! -- admin/admin )
-    key = 'YWRtaW46YWRtaW4='
+    # Basic Auth Key ( !!!! CHANGE ME !!!!! >>> U:"Gonch" PW:"russ-bifocal-helmet" )
+    key = 'R29uY2g6cnVzcy1iaWZvY2FsLWhlbG1ldA=='
 
     def do_HEAD(self):
         '''Send Headers'''
@@ -97,11 +97,11 @@ if __name__ == '__main__':
     handler = BasicAuthHandler
 
     # Spoof Server Header ( !!Change Me!! )
-    handler.server_version = ' '
-    handler.sys_version = ''
+    handler.server_version = 'MICKY-FINN'
+    handler.sys_version = 'BROCKIE-DET'
 
     # SimpleHTTPServer Setup
-    httpd = http.server.HTTPServer(('0.0.0.0', 4443), handler)
+    httpd = http.server.HTTPServer(('0.0.0.0', 8000), handler)
     httpd.socket = ssl.wrap_socket(httpd.socket, certfile='./server.pem', server_side=True)
     try:
         if not os.path.isdir('./files'):
